@@ -15,8 +15,8 @@ submits your contact form.
 Adds an SMS box to your contact form settings page, fill this in and you'll 
 get a text message each time somebody fills out one of your forms.
 
-You need a [Mediaburst SMS API Account][mediaburst api] and some SMS credits to use this
-plugin.
+You need a [Mediaburst SMS API Account](http://www.mediaburst.co.uk/api/) and some SMS 
+credits to use this plugin.
 
 = Requires =
 
@@ -24,7 +24,7 @@ plugin.
 
 * Contact Form 7 2.4 or higher
 
-* A [Mediaburst SMS API Account][mediaburst api]
+* A [Mediaburst SMS API Account](http://www.mediaburst.co.uk/api/)
 
 == Installation ==
 
@@ -37,7 +37,7 @@ plugin.
 
 = What is a Mediaburst username and password? = 
 
-To send SMS you will need to sign up for a [Mediaburst SMS API Account][mediaburst api] 
+To send SMS you will need to sign up for a [Mediaburst SMS API Account](http://www.mediaburst.co.uk/api/)
 and purchase some SMS credits.  When you sign up you'll be given a username
 and password to put in these boxes.
 
