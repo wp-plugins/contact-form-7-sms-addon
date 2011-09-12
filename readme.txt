@@ -61,6 +61,9 @@ of Ireland number would be entered 353870123456.
 
 == Changelog ==
 
+= 1.0 =
+* Initial public release
+
 = 0.1 = 
 * Initial beta release
 
