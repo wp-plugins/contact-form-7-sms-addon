@@ -30,8 +30,7 @@ credits to use this plugin.
 
 1. Upload the 'contact-form-7-sms-addon' directory to the '/wp-content/plugins/' directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Login to Wordpress Admin and setup your statuses (Under Options)
-4. Setup you SMS options for each form
+3. Setup you SMS options for each form
 
 == Frequently Asked Questions ==
 
