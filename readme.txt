@@ -18,7 +18,7 @@ get a text message each time somebody fills out one of your forms.
 You need a [Mediaburst SMS API Account][mediaburst api] and some SMS credits to use this
 plugin.
 
-=== Requires ===
+= Requires =
 
 * Wordpress 3 or higher
 
@@ -41,7 +41,7 @@ To send SMS you will need to sign up for a [Mediaburst SMS API Account][mediabur
 and purchase some SMS credits.  When you sign up you'll be given a username
 and password to put in these boxes.
 
-= Can I send to multiple mobile numbers?
+= Can I send to multiple mobile numbers? =
 
 Yes, separate each mobile number with a comma.
 
