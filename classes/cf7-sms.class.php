@@ -12,6 +12,7 @@ class WPCF7_SMS {
 		add_action( 'wpcf7_admin_after_mail_2', array( &$this, 'wpcf7_admin_after_mail_2' ) );
 		add_action( 'admin_print_scripts', array( &$this, 'admin_print_scripts' ) );
 		add_action( 'wpcf7_before_send_mail', array( &$this, 'wpcf7_before_send_mail' ) );
+		add_action( 'init', array( &$this, 'init' ) );
 	}
 	
 	// Save SMS settings on CF7 save
@@ -32,12 +33,12 @@ class WPCF7_SMS {
 					$sms = new mediaburstSMS($sms_opt['username'], $sms_opt['password']);
 					$sms_credit = $sms->CheckCredit();
 				} catch( mediaburstException $e ) {
-					$sms_credit = "Error: ".$e->getMessage();
+					$sms_credit = __('Error: ', 'wpcf7_sms') . $e->getMessage();
 				} catch (Exception $e) {
-					$sms_credit = "Error checking credit: ".$e->getMessage();
+					$sms_credit = __('Error checking credit: ', 'wpcf7_sms') . $e->getMessage();
 				}
 			} else {
-				$sms_credit = "Enter a username and password to see your credit";
+				$sms_credit = __('Enter a username and password to see your credit', 'wpcf7_sms');
 			}
 			include( WPCF7_SMS_PLUGIN_DIR.'/includes/form-sms-options-panel.php' );		
 		}
@@ -76,5 +77,9 @@ class WPCF7_SMS {
 				$sms_result = "Error checking credit: ".$e->getMessage();
 			}
 		}
+	}
+
+	function init () {
+		load_plugin_textdomain( 'wpcf7_sms', false, WPCF7_SMS_PLUGIN_DIR.'/languages' );
 	}
 }
