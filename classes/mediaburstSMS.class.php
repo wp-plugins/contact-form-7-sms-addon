@@ -42,7 +42,11 @@ class mediaburstSMS {
 	private $password;
 	private $from;
 	private $long;
+	private $truncate;
 	private $ssl;
+	// Proxy server fields
+	private $proxy_host;
+	private $proxy_port;
 	
 	/*
 	 * Create a mediaburstSMS object
@@ -72,7 +76,10 @@ class mediaburstSMS {
 		// options and defaults
 		$this->long = (array_key_exists('long', $options)) ? $options['long'] : true;
 		$this->from = (array_key_exists('from', $options)) ? $options['from'] : null;
-		$this->ssl  = (array_key_exists('ssl' , $options)) ? $options['ssl'] : mediaburstHTTP::SSLSupport();
+		$this->truncate = (array_key_exists('truncate', $options)) ? $options['truncate'] : false;
+		$this->ssl = (array_key_exists('ssl' , $options)) ? $options['ssl'] : mediaburstHTTP::SSLSupport();
+		$this->proxy_host = (array_key_exists('proxy_host', $options)) ? $options['proxy_host'] : null;
+		$this->proxy_port = (array_key_exists('proxy_port', $options)) ? $options['proxy_port'] : null;
 	}
 
 	/* 
@@ -101,6 +108,8 @@ class mediaburstSMS {
 				$sms_node->appendChild($req_doc->createElement('Concat', 3));
 			if($this->from)
 				$sms_node->appendChild($req_doc->createElement('From', $this->from));
+			if($this->truncate)
+				$sms_node->appendChild($req_doc->createElement('Truncate', 1));
 
 			$root->appendChild($sms_node);
 		}
@@ -205,6 +214,8 @@ class mediaburstSMS {
 			$url = 'http://'.$url;
 		
 		$http = new mediaburstHTTP();
+		$http->proxy_host = isset($this->proxy_host) ? $this->proxy_host : null;
+		$http->proxy_port = isset($this->proxy_port) ? $this->proxy_port : null;
 
 		return $http->Post($url, 'text/xml', $data);
 	}
@@ -242,11 +253,32 @@ class mediaburstSMS {
 		$this->long = $value;
 	}
 	
+	private function get_truncate() {
+		return $this->truncate;
+	}
+	private function set_truncate($value) {
+		$this->truncate = $value;
+	}
+
 	private function get_ssl() {
 		return $this->ssl;
 	}
 	private function set_ssl($value) {
 		$this->ssl = $value;
+	}
+
+	private function get_proxy_host() {
+		return $this->proxy_host;
+	}
+	private function set_proxy_host($value) {
+		$this->proxy_host = $value;
+	}
+
+	private function get_proxy_port() {
+		return $this->proxy_port;
+	}
+	private function set_proxy_port($value) {
+		$this->proxy_port = $value;
 	}
 }
 
@@ -276,6 +308,9 @@ class mediaburstException extends Exception {
  * @since	1.1
  */
 class mediaburstHTTP { 
+	// Optional parameters for proxy servers
+	public $proxy_host;
+	public $proxy_port;
 
 	/*
 	 * Check if PHP has SSL support compiled in
@@ -313,6 +348,10 @@ class mediaburstHTTP {
 			curl_setopt($ch, CURLOPT_HTTPHEADER, Array("Content-Type: $type"));
 			curl_setopt($ch, CURLOPT_USERAGENT, "mediaburst PHP Wrapper/1.1.0");
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+			if(isset($this->proxy_host) && isset($this->proxy_port)) {
+				curl_setopt($ch, CURLOPT_PROXY, $this->proxy_host);
+				curl_setopt($ch, CURLOPT_PROXYPORT, $this->proxy_port);
+			}
 
 			$response = curl_exec($ch);
 			$info = curl_getinfo($ch);
@@ -337,6 +376,11 @@ class mediaburstHTTP {
 				'header' => "Content-Type: $type\r\nUser-Agent: mediaburst PHP Wrapper/1.1.0\r\n",
 				'content' => $data
 			));
+
+			if(isset($this->proxy_host) && isset($this->proxy_port)) {
+				$params['http']['proxy'] = 'tcp://'.$this->proxy_host.':'.$this->proxy_port;
+				$params['http']['request_fulluri'] = True;
+			}
 	
 			$ctx = stream_context_create($params);
 			$fp = @fopen($url, 'rb', false, $ctx);

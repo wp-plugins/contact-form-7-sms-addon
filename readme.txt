@@ -3,9 +3,10 @@ Author: Mediaburst Ltd
 Website: http://www.mediaburst.co.uk/wordpress/contact-form-7-sms-addon/
 Contributors: mediaburst, martinsteel
 Tags: SMS, Mediaburst, Contact Form 7, Text Message
+Text Domain: wpcf7_sms
 Requires at least: 3.0.0
 Tested up to: 3.2.1
-Stable tag: trunk
+Stable tag: 1.1
 
 Works with the Contact Form 7 plugin to send SMS notifications when somebody 
 submits your contact form. 
@@ -59,6 +60,10 @@ of Ireland number would be entered 353870123456.
 2. SMS settings in detail
 
 == Changelog ==
+
+= 1.1 = 
+* Allow SMS messages up to 459 characters.
+* Truncate message text if it is over 459 characters (was failing before).
 
 = 1.0 =
 * Initial public release

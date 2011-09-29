@@ -69,7 +69,7 @@ class WPCF7_SMS {
 
 			include('mediaburstSMS.class.php');
 			try {
-				$sms = new mediaburstSMS( $sms_opt['username'], $sms_opt['password'] );
+				$sms = new mediaburstSMS( $sms_opt['username'], $sms_opt['password'], array('long' => true, 'truncate' => true) );
 				$sms_result = $sms->Send( $phone, $message );
 			} catch( mediaburstException $e ) {
 				$sms_result = "Error: ".$e->getMessage();
