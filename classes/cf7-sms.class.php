@@ -8,11 +8,14 @@
  */
 class WPCF7_SMS {
 	function __construct() {
-		add_action( 'wpcf7_after_save', array( &$this, 'wpcf7_after_save' ) );
-		add_action( 'wpcf7_admin_after_mail_2', array( &$this, 'wpcf7_admin_after_mail_2' ) );
-		add_action( 'admin_print_scripts', array( &$this, 'admin_print_scripts' ) );
-		add_action( 'wpcf7_before_send_mail', array( &$this, 'wpcf7_before_send_mail' ) );
-		add_action( 'init', array( &$this, 'init' ) );
+		if ( function_exists( 'add_action' ) ) {
+			add_action( 'wpcf7_after_save', array( &$this, 'wpcf7_after_save' ) );
+			add_action( 'wpcf7_admin_after_mail_2', array( &$this, 'wpcf7_admin_after_mail_2' ) );
+			add_action( 'wpcf7_before_send_mail', array( &$this, 'wpcf7_before_send_mail' ) );
+			add_action( 'init', array( &$this, 'init' ) );
+			add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
+			add_action( 'admin_print_styles', array( &$this, 'admin_print_styles' ) );
+		}
 	}
 	
 	// Save SMS settings on CF7 save
@@ -44,14 +47,6 @@ class WPCF7_SMS {
 		}
 	}
 
-	// Add Javascript to admin pages
-	function admin_print_scripts() {
-		global $plugin_page;
-		if ( ! isset( $plugin_page ) || 'wpcf7' != $plugin_page )
-			return;		
-		wp_enqueue_script( 'wpcf7-sms-admin', WPCF7_SMS_PLUGIN_URL . '/js/admin.js', array( 'jquery', 'wpcf7-admin' ), WPCF7_SMS_VERSION, true );
-	}	
-
 	// Send text message
 	function wpcf7_before_send_mail( $cf ) {
 		//TODO: Change this to use post meta when CF7 3.0 is released
@@ -81,5 +76,54 @@ class WPCF7_SMS {
 
 	function init () {
 		load_plugin_textdomain( 'wpcf7_sms', false, WPCF7_SMS_PLUGIN_DIR.'/languages' );
+	}
+
+	function admin_enqueue_scripts () {
+		global $plugin_page;
+		if ( ! isset( $plugin_page ) || 'wpcf7' != $plugin_page )
+			return;		
+		wp_enqueue_script( 'wpcf7-sms-admin', WPCF7_SMS_PLUGIN_URL . '/js/admin.js', array( 'jquery', 'wpcf7-admin' ), WPCF7_SMS_VERSION, true );
+		wp_enqueue_script( 'thickbox' );
+	}
+
+	function admin_print_styles () {
+		global $plugin_page;
+		if ( ! isset( $plugin_page ) || 'wpcf7' != $plugin_page )
+			return;
+		wp_enqueue_style( 'thickbox' );
+	}
+
+	function send_test ( $user, $pass, $phone ) {
+		include('mediaburstSMS.class.php');
+		$message = "Test message from Contact Form 7 SMS Addon";
+		$phone = explode( ',', $phone );
+		try {
+			$sms = new mediaburstSMS( $user, $pass, array('long' => true, 'truncate' => true) );
+			$sms_result = $sms->Send( $phone, $message );
+
+			$test_detail = "";
+			$success = true;
+			for($i = 0; $i < count($sms_result); $i++) {
+				if(!$sms_result[$i]['success']) {
+					$success = false;
+					if($sms_result[$i]['error_no'] == 10)
+						$test_detail .= $sms_result[$i]['to'].' - Invalid mobile number<br />';
+					else
+						$test_detail .= $sms_result[$i]['to'].' - '.$sms_result[$i]['error_desc'].'<br />';
+				} else {
+					$test_detail .= $sms_result[$i]['to'].' - OK<br />';
+				}
+			}
+			if($success) {
+				$test_result = '<h3>Test sent successfully</h3>';
+			} else {
+				$test_result = '<h3>Test failed</h3>'.$test_detail;
+			}
+		} catch( mediaburstException $e ) {
+			$test_result = '<h3>Test failed</h3>'.$e->getMessage();
+		} catch (Exception $e) {
+			$test_result = '<h3>Test failed</h3>'.$e->getMessage();
+		}
+		return $test_result;
 	}
 }

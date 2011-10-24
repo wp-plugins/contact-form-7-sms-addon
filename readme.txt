@@ -6,7 +6,7 @@ Tags: SMS, Mediaburst, Contact Form 7, Text Message
 Text Domain: wpcf7_sms
 Requires at least: 3.0.0
 Tested up to: 3.2.1
-Stable tag: 1.1
+Stable tag: 1.2
 
 Works with the Contact Form 7 plugin to send SMS notifications when somebody 
 submits your contact form. 
@@ -53,6 +53,12 @@ leading + symbol or international dialing prefix.
 For example a UK number should be entered 447123456789, and a Republic 
 of Ireland number would be entered 353870123456.
 
+= Can I test my settings? = 
+
+On the settings page click the Test button just below your username and
+password.  This will send a text message to the configured mobile number(s)
+using the username and password you entered.
+
 == Screenshots ==
 
 1. SMS box added to the Contact Form 7 page
@@ -60,6 +66,10 @@ of Ireland number would be entered 353870123456.
 2. SMS settings in detail
 
 == Changelog ==
+
+= 1.2 =
+* New Test button when entering settings.  See if your your username,password
+  and phone number all work.
 
 = 1.1 = 
 * Allow SMS messages up to 459 characters.

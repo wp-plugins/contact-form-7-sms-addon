@@ -7,7 +7,6 @@
 	<tbody>
 		<tr>
 			<td colspan="2">
-				<!-- TODO: make this checkbox work -->
 				<input type="checkbox" id="wpcf7-sms-active" name="wpcf7-sms[active]" value="1" <?php echo ($sms_opt["active"]) ? 'checked="checked"' : '' ?> />
 				<label for="wpcf7-sms-active"><?php _e('Send SMS alerts', 'wpcf7_sms') ?></label>
 			</td>
@@ -32,9 +31,12 @@
 					<label for="wpcf7-sms-password"><?php _e('Mediaburst password', 'wpcf7_sms') ?>:</label><br />
 					<input type="password" id="wpcf7-sms-password" name="wpcf7-sms[password]" class="wide" value="<?php echo esc_attr($sms_opt["password"]) ?>" />
 				</div>
-				<div class="mail-field">
-					<?php _e('SMS Available', 'wpcf7_sms') ?>: <?php echo $sms_credit ?><br />
-					<a href="https://smsapi.mediaburst.co.uk/" target="_blank"><?php _e('Buy credits', 'wpcf7_sms') ?></a>
+				<div class="mail-field" style="padding-top:10px;">
+					<?php _e('SMS Available', 'wpcf7_sms') ?>: <?php echo $sms_credit ?> 
+					<a href="https://smsapi.mediaburst.co.uk/" target="_blank" class="button-secondary"><?php _e('Buy credits', 'wpcf7_sms') ?></a>
+					<a id="wpcf7-sms-test" href="<?php echo WPCF7_SMS_PLUGIN_URL.'/ajax/test-send.php'?>" class="button-secondary"><?php _e('Test', 'wpcf7_sms') ?></a>			
+				</div>
+				<div id="wpcf7-sms-test-result" class="mail-field" style="display: none">
 				</div>
 			</td>
 		</tr>
