@@ -12,4 +12,22 @@ jQuery(document).ready(function() {
 	} catch (e) {
 
 	}
+
+	try {
+		jQuery('#wpcf7-sms-test').click(function() {
+			var url = jQuery('#wpcf7-sms-test').attr('href');
+			url += "?user="+encodeURIComponent(jQuery('#wpcf7-sms-username').val());
+			url += "&pass="+encodeURIComponent(jQuery('#wpcf7-sms-password').val());
+			url += "&to="+encodeURIComponent(jQuery('#wpcf7-sms-phone').val());
+
+			jQuery('#wpcf7-sms-test-result').show().html('Sending test message');
+			jQuery.get(url, function(data) { 
+				jQuery('#wpcf7-sms-test-result').html(data);
+				
+			});
+			return false;
+		});
+	} catch(e) {
+
+	}
 });

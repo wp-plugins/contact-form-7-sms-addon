@@ -14,7 +14,6 @@ class WPCF7_SMS {
 			add_action( 'wpcf7_before_send_mail', array( &$this, 'wpcf7_before_send_mail' ) );
 			add_action( 'init', array( &$this, 'init' ) );
 			add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
-			add_action( 'admin_print_styles', array( &$this, 'admin_print_styles' ) );
 		}
 	}
 	
@@ -51,7 +50,6 @@ class WPCF7_SMS {
 	function wpcf7_before_send_mail( $cf ) {
 		//TODO: Change this to use post meta when CF7 3.0 is released
 		$sms_opt = get_option( 'wpcf7_sms_'.$cf->id );
-
 		if( $sms_opt != null && isset( $sms_opt['active'] ) && isset( $sms_opt['username'] ) && isset( $sms_opt['password'] ) && $sms_opt['username'] != '' 
 			&& $sms_opt['password'] != '' && isset ( $sms_opt['phone'] ) && $sms_opt['phone'] != '' && isset( $sms_opt['message'] ) && $sms_opt['message'] != '' ) {
 
@@ -83,14 +81,6 @@ class WPCF7_SMS {
 		if ( ! isset( $plugin_page ) || 'wpcf7' != $plugin_page )
 			return;		
 		wp_enqueue_script( 'wpcf7-sms-admin', WPCF7_SMS_PLUGIN_URL . '/js/admin.js', array( 'jquery', 'wpcf7-admin' ), WPCF7_SMS_VERSION, true );
-		wp_enqueue_script( 'thickbox' );
-	}
-
-	function admin_print_styles () {
-		global $plugin_page;
-		if ( ! isset( $plugin_page ) || 'wpcf7' != $plugin_page )
-			return;
-		wp_enqueue_style( 'thickbox' );
 	}
 
 	function send_test ( $user, $pass, $phone ) {
