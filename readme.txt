@@ -6,7 +6,7 @@ Tags: SMS, Mediaburst, Contact Form 7, Text Message
 Text Domain: wpcf7_sms
 Requires at least: 3.0.0
 Tested up to: 3.2.1
-Stable tag: 1.3
+Stable tag: 1.3.1
 
 Works with the Contact Form 7 plugin to send SMS notifications when somebody 
 submits your contact form. 
@@ -66,6 +66,10 @@ using the username and password you entered.
 2. SMS settings in detail
 
 == Changelog ==
+
+= 1.3.1 = 
+* Nudge version number as Wordpress plugins site seems to have missed the last
+  update.  No changes in this release.
 
 = 1.3 =
 * Fix test button on settings page. The previous release was missing an
