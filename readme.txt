@@ -16,7 +16,7 @@ submits your contact form.
 Adds an SMS box to your contact form settings page, fill this in and you'll 
 get a text message each time somebody fills out one of your forms.
 
-You need a [Mediaburst SMS API Account](http://www.mediaburst.co.uk/api/) and some SMS 
+You need a [Mediaburst SMS API Account](http://www.mediaburst.co.uk/api/?utm_source=wordpress&utm_medium=plugin&utm_campaign=contact-form-7-sms) and some SMS 
 credits to use this plugin.
 
 = Requires =
@@ -25,7 +25,7 @@ credits to use this plugin.
 
 * Contact Form 7 2.4 or higher
 
-* A [Mediaburst SMS API Account](http://www.mediaburst.co.uk/api/)
+* A [Mediaburst SMS API Account](http://www.mediaburst.co.uk/api/?utm_source=wordpress&utm_medium=plugin&utm_campaign=contact-form-7-sms)
 
 == Installation ==
 
@@ -37,7 +37,7 @@ credits to use this plugin.
 
 = What is a Mediaburst username and password? = 
 
-To send SMS you will need to sign up for a [Mediaburst SMS API Account](http://www.mediaburst.co.uk/api/)
+To send SMS you will need to sign up for a [Mediaburst SMS API Account](http://www.mediaburst.co.uk/api/?utm_source=wordpress&utm_medium=plugin&utm_campaign=contact-form-7-sms)
 and purchase some SMS credits.  When you sign up you'll be given a username
 and password to put in these boxes.
 
@@ -88,5 +88,3 @@ using the username and password you entered.
 
 = 0.1 = 
 * Initial beta release
-
-[mediaburst api]: http://www.mediaburst.co.uk/api/
