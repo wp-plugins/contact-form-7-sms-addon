@@ -5,8 +5,8 @@ Contributors: mediaburst, martinsteel
 Tags: SMS, Mediaburst, Contact Form 7, Text Message
 Text Domain: wpcf7_sms
 Requires at least: 3.0.0
-Tested up to: 3.2.1
-Stable tag: 1.3.1
+Tested up to: 3.3.1
+Stable tag: 1.4
 
 Works with the Contact Form 7 plugin to send SMS notifications when somebody 
 submits your contact form. 
@@ -23,7 +23,7 @@ credits to use this plugin.
 
 * Wordpress 3 or higher
 
-* Contact Form 7 2.4 or higher
+* [Contact Form 7](http://wordpress.org/extend/plugins/contact-form-7/) 2.4 or higher
 
 * A [Mediaburst SMS API Account](http://www.mediaburst.co.uk/api/?utm_source=wordpress&utm_medium=plugin&utm_campaign=contact-form-7-sms)
 
@@ -67,6 +67,9 @@ using the username and password you entered.
 
 == Changelog ==
 
+= 1.4 = 
+* Fix merge field compatability with Contact Form 7 version 3.1
+
 = 1.3.1 = 
 * Nudge version number as Wordpress plugins site seems to have missed the last
   update.  No changes in this release.
@@ -87,4 +90,9 @@ using the username and password you entered.
 * Initial public release
 
 = 0.1 = 
-* Initial beta release
+* Beta release
+
+== Upgrade Notice ==
+
+Install this version if you have updated Contact Form 7 to version 3.1. It
+fixes an issue with merged fields.

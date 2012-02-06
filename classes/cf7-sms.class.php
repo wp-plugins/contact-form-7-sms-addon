@@ -31,6 +31,7 @@ class WPCF7_SMS {
 			$sms_credit = 0;
 			if( $sms_opt != null && isset( $sms_opt['username'] ) && isset( $sms_opt['password'] ) && $sms_opt['username'] != '' && $sms_opt['password'] != '' ) {
 				include('mediaburstSMS.class.php');
+
 				try {
 					$sms = new mediaburstSMS($sms_opt['username'], $sms_opt['password']);
 					$sms_credit = $sms->CheckCredit();
@@ -54,7 +55,12 @@ class WPCF7_SMS {
 			&& $sms_opt['password'] != '' && isset ( $sms_opt['phone'] ) && $sms_opt['phone'] != '' && isset( $sms_opt['message'] ) && $sms_opt['message'] != '' ) {
 
 			// Replace merged Contact Form 7 fields
-			$regex = '/\[\s*([a-zA-Z_][0-9a-zA-Z:._-]*)\s*\]/';
+
+			if(defined('WPCF7_VERSION') && WPCF7_VERSION < 3.1)
+				$regex = '/\[\s*([a-zA-Z_][0-9a-zA-Z:._-]*)\s*\]/';
+			else
+				$regex = '/(\[?)\[\s*([a-zA-Z_][0-9a-zA-Z:._-]*)\s*\](\]?)/';
+
 			$callback = array( &$cf, 'mail_callback' );
 			$message = preg_replace_callback( $regex, $callback, $sms_opt['message'] );
 			$phone = preg_replace_callback( $regex, $callback, $sms_opt['phone'] );
