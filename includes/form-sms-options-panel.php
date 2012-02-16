@@ -34,7 +34,7 @@
 				<div class="mail-field" style="padding-top:10px;">
 					<?php _e('SMS Available', 'wpcf7_sms') ?>: <?php echo $sms_credit ?> 
 					<a href="https://smsapi.mediaburst.co.uk/" target="_blank" class="button-secondary"><?php _e('Buy credits', 'wpcf7_sms') ?></a>
-					<a id="wpcf7-sms-test" href="<?php echo WPCF7_SMS_PLUGIN_URL.'/ajax/test-send.php'?>" class="button-secondary"><?php _e('Test', 'wpcf7_sms') ?></a>			
+					<a id="wpcf7-sms-test" href="#" class="button-secondary"><?php _e('Test', 'wpcf7_sms') ?></a>			
 				</div>
 				<div id="wpcf7-sms-test-result" class="mail-field" style="display: none">
 				</div>

@@ -14,6 +14,9 @@ class WPCF7_SMS {
 			add_action( 'wpcf7_before_send_mail', array( &$this, 'wpcf7_before_send_mail' ) );
 			add_action( 'init', array( &$this, 'init' ) );
 			add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
+			if( is_admin() ) {
+				add_action( 'wp_ajax_test_send', array( &$this, 'ajax_test_send' ) );
+			}
 		}
 	}
 	
@@ -30,10 +33,9 @@ class WPCF7_SMS {
 			$sms_opt = get_option( 'wpcf7_sms_'.$cf->id );
 			$sms_credit = 0;
 			if( $sms_opt != null && isset( $sms_opt['username'] ) && isset( $sms_opt['password'] ) && $sms_opt['username'] != '' && $sms_opt['password'] != '' ) {
-				include('mediaburstSMS.class.php');
 
 				try {
-					$sms = new mediaburstSMS($sms_opt['username'], $sms_opt['password']);
+					$sms = $this->get_mediaburst_sms( $sms_opt['username'], $sms_opt['password'] );
 					$sms_credit = $sms->CheckCredit();
 				} catch( mediaburstException $e ) {
 					$sms_credit = __('Error: ', 'wpcf7_sms') . $e->getMessage();
@@ -66,9 +68,8 @@ class WPCF7_SMS {
 			$phone = preg_replace_callback( $regex, $callback, $sms_opt['phone'] );
 			$phone = explode( ',', $phone );
 
-			include('mediaburstSMS.class.php');
 			try {
-				$sms = new mediaburstSMS( $sms_opt['username'], $sms_opt['password'], array('long' => true, 'truncate' => true) );
+				$sms = $this->get_mediaburst_sms( $sms_opt['username'], $sms_opt['password'] );
 				$sms_result = $sms->Send( $phone, $message );
 			} catch( mediaburstException $e ) {
 				$sms_result = "Error: ".$e->getMessage();
@@ -90,11 +91,10 @@ class WPCF7_SMS {
 	}
 
 	function send_test ( $user, $pass, $phone ) {
-		include('mediaburstSMS.class.php');
 		$message = "Test message from Contact Form 7 SMS Addon";
 		$phone = explode( ',', $phone );
 		try {
-			$sms = new mediaburstSMS( $user, $pass, array('long' => true, 'truncate' => true) );
+			$sms = $this->get_mediaburst_sms( $user, $pass );
 			$sms_result = $sms->Send( $phone, $message );
 
 			$test_detail = "";
@@ -121,5 +121,31 @@ class WPCF7_SMS {
 			$test_result = '<h3>Test failed</h3>'.$e->getMessage();
 		}
 		return $test_result;
+	}
+
+	/* 
+	 * Get a mediaburstSMS object
+	 * Sets the default options we use, to keep things simple
+	 *
+	 * @since 1.5
+	 * @returns mediaburstSMS object
+	 */
+	function get_mediaburst_sms( $user, $pass ) {
+		$options = array(
+			'long' 			=> true,
+			'truncate' 		=> true,
+			'http_class' 	=> 'WordPressMBHTTP',
+		);
+		return new mediaburstSMS( $user, $pass, $options );
+	}
+
+	/*
+	 * Send a test message from the Admin page
+	 * Used by the WordPress AJAX handler
+	 *
+	 * @since 1.5
+	 */
+	function ajax_test_send () {
+		print_r($this->send_test($_POST['user'], $_POST['pass'], $_POST['to']));
 	}
 }

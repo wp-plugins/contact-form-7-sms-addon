@@ -3,7 +3,7 @@
 Plugin Name: Contact Form 7 - SMS Addon
 Plugin URI: http://www.mediaburst.co.uk/wordpress/contact-form-7-sms-addon/
 Description: Send SMS notifications when somebody submits your contact form
-Version: 1.4
+Version: 1.5
 Author: Mediaburst Ltd
 Author URI: http://www.mediaburst.co.uk/
 License: ISC
@@ -21,6 +21,15 @@ if ( ! defined( 'WPCF7_SMS_PLUGIN_DIR' ) )
 if ( ! defined( 'WPCF7_SMS_PLUGIN_URL' ) )
 	define( 'WPCF7_SMS_PLUGIN_URL', WP_PLUGIN_URL . '/' . WPCF7_SMS_PLUGIN_NAME );
 
-require( 'classes/cf7-sms.class.php' );
+
+// Try to avoid clashes with anything else using MB
+if ( ! class_exists( 'mediaburstSMS' ) ) {
+	require_once( 'classes/mediaburstSMS.class.php' );
+}
+if ( ! class_exists( 'WordPressMBHTTP' ) ) {
+	require_once( 'classes/wordpress-mb-http.class.php' );
+}
+
+require_once( 'classes/cf7-sms.class.php' );
 
 new WPCF7_SMS();

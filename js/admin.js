@@ -15,14 +15,15 @@ jQuery(document).ready(function() {
 
 	try {
 		jQuery('#wpcf7-sms-test').click(function() {
-			var url = jQuery('#wpcf7-sms-test').attr('href');
-			url += "?user="+encodeURIComponent(jQuery('#wpcf7-sms-username').val());
-			url += "&pass="+encodeURIComponent(jQuery('#wpcf7-sms-password').val());
-			url += "&to="+encodeURIComponent(jQuery('#wpcf7-sms-phone').val());
-
+			var data = {
+				action: 'test_send',
+				user: jQuery('#wpcf7-sms-username').val(),
+				pass: jQuery('#wpcf7-sms-password').val(),
+				to: jQuery('#wpcf7-sms-phone').val()
+			};
 			jQuery('#wpcf7-sms-test-result').show().html('Sending test message');
-			jQuery.get(url, function(data) { 
-				jQuery('#wpcf7-sms-test-result').html(data);
+			jQuery.post(ajaxurl, data, function(resp) { 
+				jQuery('#wpcf7-sms-test-result').html(resp);
 				
 			});
 			return false;

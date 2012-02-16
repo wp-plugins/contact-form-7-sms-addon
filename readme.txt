@@ -6,7 +6,7 @@ Tags: SMS, Mediaburst, Contact Form 7, Text Message
 Text Domain: wpcf7_sms
 Requires at least: 3.0.0
 Tested up to: 3.3.1
-Stable tag: 1.4
+Stable tag: 1.5
 
 Works with the Contact Form 7 plugin to send SMS notifications when somebody 
 submits your contact form. 
@@ -66,6 +66,11 @@ using the username and password you entered.
 2. SMS settings in detail
 
 == Changelog ==
+
+= 1.5 =
+* Use WordPress HTTP POST function for the call to the mediaburst API, should
+  hopefully make it work more reliably on Windows and older Linux installs.
+* Change the Admin text function to use built in WordPress AJAX functions
 
 = 1.4 = 
 * Fix merge field compatability with Contact Form 7 version 3.1

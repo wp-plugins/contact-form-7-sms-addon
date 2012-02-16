@@ -8,10 +8,10 @@
  * @author      mediaburst <hello@mediaburst.co.uk>
  * @copyright   2011 Mediaburst Ltd
  * @license     ISC
- * @version     1.3.1
+ * @version		1.4
  * @since       1.0
- * @link        http://www.mediaburst.co.uk/api/ Mediaburst API Documentation
- * @link        https://github.com/mediaburst/   Latest version of this class
+ * @link	http://www.mediaburst.co.uk/api/	Mediaburst API Documentation
+ * @link	https://github.com/mediaburst/		Latest version of this class
  */
 
 /* 
@@ -48,6 +48,20 @@ class mediaburstSMS {
 	private $proxy_host;
 	private $proxy_port;
 	
+	/**
+	 * Enables various logging of messages when true.
+	 *
+	 * @var bool
+	 **/
+	protected $log;
+	
+	/**
+	 * The name of the class to use for HTTP transport
+	 *
+	 * @var string
+	 **/
+	protected $http_class;
+	
 	/*
 	 * Create a mediaburstSMS object
 	 *
@@ -77,17 +91,28 @@ class mediaburstSMS {
 		$this->long = (array_key_exists('long', $options)) ? $options['long'] : true;
 		$this->from = (array_key_exists('from', $options)) ? $options['from'] : null;
 		$this->truncate = (array_key_exists('truncate', $options)) ? $options['truncate'] : false;
-		$this->ssl = (array_key_exists('ssl' , $options)) ? $options['ssl'] : mediaburstHTTP::SSLSupport();
 		$this->proxy_host = (array_key_exists('proxy_host', $options)) ? $options['proxy_host'] : null;
 		$this->proxy_port = (array_key_exists('proxy_port', $options)) ? $options['proxy_port'] : null;
+		$this->log = (array_key_exists('log', $options)) ? $options['log'] : false;
+		$this->http_class = (array_key_exists('http_class', $options)) ? $options['http_class'] : 'mediaburstHTTP';
+		$this->ssl = (array_key_exists('ssl', $options)) ? $options['ssl'] : true;
 	}
 
 	/* 
-	 * Sends a text message
+	 * Sends a text message.
 	 * 
-	 * @param mixed		to	Either a string containing a single mobile 
+	 * The response is returned as an array of responses, each 
+	 * response looking similar to:
+	 * Array (
+	 * 		[to] => 447971687295
+	 * 		[id] => VE_127890871
+	 * 		[success] => 1
+	 * )
+	 * 
+	 * @param mixed	$to	Either a string containing a single mobile 
 	 *				number or an array of numbers
-	 * @param string	message	The text message to send
+	 * @param string $message The text message to send
+	 * return An array of responses, each response as an array 
 	 */
 	public function Send( $to, $message ) {
 		// Make single number in to array for easy processing
@@ -115,6 +140,8 @@ class mediaburstSMS {
 		}
 
 		$req_xml = $req_doc->saveXML();
+		if ( $this->log )
+			$this->LogXML( 'Send SMS XML', $req_xml );
 		$resp_xml = $this->PostToAPI($this->url_send, $req_xml);
 		$resp_doc = new DOMDocument();
 		$resp_doc->loadXML($resp_xml);
@@ -139,6 +166,9 @@ class mediaburstSMS {
 								break;
 							case "ErrDesc":
 								$sms['error_desc'] = $resp_node->nodeValue;
+								break;
+							default:
+								$sms[strtolower($resp_node->nodeName)] = $resp_node->nodeValue;
 								break;
 						}
 					}
@@ -208,18 +238,44 @@ class mediaburstSMS {
 	 * @return	string		Server response
 	 */
 	private function PostToAPI($url, $data) {
-		if($this->ssl)
+		$http_class = $this->http_class;
+		$http = new $http_class();
+
+		if($this->ssl && $http->SSLSupport())
 			$url = 'https://'.$url;
 		else
 			$url = 'http://'.$url;
 		
-		$http = new mediaburstHTTP();
 		$http->proxy_host = isset($this->proxy_host) ? $this->proxy_host : null;
 		$http->proxy_port = isset($this->proxy_port) ? $this->proxy_port : null;
 
 		return $http->Post($url, 'text/xml', $data);
 	}
 
+	/**
+	 * Log some XML, tidily if possible, in the PHP error log
+	 *
+	 * @param string $log_msg The log message to prepend to the XML
+	 * @param string $xml An XML formatted string
+	 * @return void
+	 **/
+	protected function LogXML( $log_msg, $xml ) {
+		// Tidy if possible
+		if ( class_exists( 'tidy' ) ) {
+			$tidy = new tidy;
+			$config = array(
+				'indent' => true,
+				'input-xml'	=> true,
+				'output-xml' => true,
+				'wrap' => 200
+			);
+			$tidy->parseString( $xml, $config, 'utf8' );
+			$tidy->cleanRepair();
+			$xml = $tidy;
+		}
+		// Output
+		error_log( "MBSMS $log_msg:  $xml" );
+	}
 
 	// Use PHP magic function to create GET property accessor 
 	// i.e. $sms->from will call get_from() on the object
@@ -261,7 +317,9 @@ class mediaburstSMS {
 	}
 
 	private function get_ssl() {
-		return $this->ssl;
+		$http_class = $this->http_class;
+		$http = new $http_class();
+		return $this->ssl && $http->SSLSupport();
 	}
 	private function set_ssl($value) {
 		$this->ssl = $value;
@@ -304,6 +362,12 @@ class mediaburstException extends Exception {
  * Wrapper class for HTTP calls, attempts to work round the 
  * differences in PHP versions, such as SSL & curl support
  * 
+ * If you prefer to integrate with an existing set of HTTP 
+ * functionality in your framework or CMS, you can extend
+ * or completely replace this class, then pass the new
+ * class name into your mediaburstSMS instance as the
+ * http_class option (string).
+ * 
  * @package	mediaburstSMS
  * @since	1.1
  */
@@ -317,7 +381,7 @@ class mediaburstHTTP {
 	 *
 	 * @returns     True if SSL is supported
 	 */
-	public static function SSLSupport() {
+	public function SSLSupport() {
 		$ssl = false;
 		// See if PHP compiled with cURL
 		if(extension_loaded('curl')) {
