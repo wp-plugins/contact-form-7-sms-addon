@@ -37,16 +37,45 @@ class WordPressMBHTTP extends mediaburstHTTP {
 	 * @return string Response returned by server
 	 */
 	public function Post($url, $type, $data) {
+		
 		$args = array(
 			'body' => $data,
 			'headers' => array( 'Content-Type' => 'text/xml' ),
 			'timeout' => 10, // Seconds
 		);
+
+		if( stristr( $url, 'https://' ) ) {		
+			$args['sslverify'] = $this->SSLVerify();
+		}	
+
 		$result = wp_remote_post( $url, $args );
 		if ( is_wp_error( $result ) ) {
 			error_log( "POST failed: " . $result->get_error_message() );
-			return false;
+			throw new mediaburstException("HTTP Call failed - Error: ".$result->get_error_message());
 		}
+
 		return $result[ 'body' ];
 	}
+
+	private function SSLVerify() {
+
+		$opt = get_option( 'mediaburst_http' );
+		if( !$opt )
+			$opt = array();
+
+		if( !array_key_exists( 'sslverify', $opt ) ) {
+			$args = array(
+				'timeout' => 10, // Seconds
+			);
+			$result = wp_remote_post( $url, $args );
+			if( is_wp_error( $result ) ) {
+				$opt['sslverify'] = false;
+			} else {
+				$opt['sslverify'] = true;
+			}
+			update_option( 'mediaburst_http', $opt );
+		}
+		return $opt['sslverify'];
+	}
+
 }

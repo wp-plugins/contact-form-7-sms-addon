@@ -38,9 +38,9 @@ class WPCF7_SMS {
 					$sms = $this->get_mediaburst_sms( $sms_opt['username'], $sms_opt['password'] );
 					$sms_credit = $sms->CheckCredit();
 				} catch( mediaburstException $e ) {
-					$sms_credit = __('Error: ', 'wpcf7_sms') . $e->getMessage();
+					$sms_credit = __('Error checking credit', 'wpcf7_sms');
 				} catch (Exception $e) {
-					$sms_credit = __('Error checking credit: ', 'wpcf7_sms') . $e->getMessage();
+					$sms_credit = __('Error checking credit', 'wpcf7_sms');
 				}
 			} else {
 				$sms_credit = __('Enter a username and password to see your credit', 'wpcf7_sms');
