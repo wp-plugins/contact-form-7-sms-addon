@@ -3,7 +3,7 @@
 Plugin Name: Contact Form 7 - SMS Addon
 Plugin URI: http://www.mediaburst.co.uk/wordpress/contact-form-7-sms-addon/
 Description: Send SMS notifications when somebody submits your contact form
-Version: 1.5
+Version: 1.5.1
 Author: Mediaburst Ltd
 Author URI: http://www.mediaburst.co.uk/
 License: ISC
