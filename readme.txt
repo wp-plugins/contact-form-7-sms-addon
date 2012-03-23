@@ -1,12 +1,12 @@
 === Contact Form 7 - SMS Addon ===
 Author: Mediaburst Ltd
-Website: http://www.mediaburst.co.uk/wordpress/contact-form-7-sms-addon/
+Website: http://www.mediaburst.co.uk/plugins-integrations/contact-form-7-sms/
 Contributors: mediaburst, martinsteel
 Tags: SMS, Mediaburst, Contact Form 7, Text Message
 Text Domain: wpcf7_sms
 Requires at least: 3.0.0
 Tested up to: 3.3.1
-Stable tag: 1.5.1
+Stable tag: 1.5.2
 
 Works with the Contact Form 7 plugin to send SMS notifications when somebody 
 submits your contact form. 
@@ -66,6 +66,9 @@ using the username and password you entered.
 2. SMS settings in detail
 
 == Changelog ==
+
+= 1.5.2 =
+* Update mediaburst API Wrapper to fix character encoding of & sign
 
 = 1.5.1 = 
 * Further tweaks for SSL compatability on servers with missing CA bundles
