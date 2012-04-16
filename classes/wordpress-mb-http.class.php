@@ -17,7 +17,7 @@
  * @package	mediaburstSMS
  * @since	1.1
  */
-class WordPressMBHTTP extends mediaburstHTTP { 
+class WPWordPressMBHTTP extends WPmediaburstHTTP { 
 
 	/*
 	 * Check if the WordPress HTTP API can support SSL
@@ -51,7 +51,7 @@ class WordPressMBHTTP extends mediaburstHTTP {
 		$result = wp_remote_post( $url, $args );
 		if ( is_wp_error( $result ) ) {
 			error_log( "POST failed: " . $result->get_error_message() );
-			throw new mediaburstException("HTTP Call failed - Error: ".$result->get_error_message());
+			throw new WPmediaburstException("HTTP Call failed - Error: ".$result->get_error_message());
 		}
 
 		return $result[ 'body' ];

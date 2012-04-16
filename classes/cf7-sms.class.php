@@ -37,7 +37,7 @@ class WPCF7_SMS {
 				try {
 					$sms = $this->get_mediaburst_sms( $sms_opt['username'], $sms_opt['password'] );
 					$sms_credit = $sms->CheckCredit();
-				} catch( mediaburstException $e ) {
+				} catch( WPmediaburstException $e ) {
 					$sms_credit = __('Error checking credit', 'wpcf7_sms');
 				} catch (Exception $e) {
 					$sms_credit = __('Error checking credit', 'wpcf7_sms');
@@ -71,7 +71,7 @@ class WPCF7_SMS {
 			try {
 				$sms = $this->get_mediaburst_sms( $sms_opt['username'], $sms_opt['password'] );
 				$sms_result = $sms->Send( $phone, $message );
-			} catch( mediaburstException $e ) {
+			} catch( WPmediaburstException $e ) {
 				$sms_result = "Error: ".$e->getMessage();
 			} catch (Exception $e) {
 				$sms_result = "Error checking credit: ".$e->getMessage();
@@ -115,7 +115,7 @@ class WPCF7_SMS {
 			} else {
 				$test_result = '<h3>Test failed</h3>'.$test_detail;
 			}
-		} catch( mediaburstException $e ) {
+		} catch( WPmediaburstException $e ) {
 			$test_result = '<h3>Test failed</h3>'.$e->getMessage();
 		} catch (Exception $e) {
 			$test_result = '<h3>Test failed</h3>'.$e->getMessage();
@@ -134,9 +134,9 @@ class WPCF7_SMS {
 		$options = array(
 			'long' 			=> true,
 			'truncate' 		=> true,
-			'http_class' 	=> 'WordPressMBHTTP',
+			'http_class' 	=> 'WPWordPressMBHTTP',
 		);
-		return new mediaburstSMS( $user, $pass, $options );
+		return new WPmediaburstSMS( $user, $pass, $options );
 	}
 
 	/*

@@ -23,10 +23,10 @@ if ( ! defined( 'WPCF7_SMS_PLUGIN_URL' ) )
 
 
 // Try to avoid clashes with anything else using MB
-if ( ! class_exists( 'mediaburstSMS' ) ) {
-	require_once( 'classes/mediaburstSMS.class.php' );
+if ( ! class_exists( 'WPmediaburstSMS' ) ) {
+	require_once( 'classes/WPmediaburstSMS.class.php' );
 }
-if ( ! class_exists( 'WordPressMBHTTP' ) ) {
+if ( ! class_exists( 'WPWordPressMBHTTP' ) ) {
 	require_once( 'classes/wordpress-mb-http.class.php' );
 }
 
