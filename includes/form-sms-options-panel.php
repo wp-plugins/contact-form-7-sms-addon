@@ -32,6 +32,7 @@
 					<input type="password" id="wpcf7-sms-password" name="wpcf7-sms[password]" class="wide" value="<?php echo esc_attr($sms_opt["password"]) ?>" />
 				</div>
 				<div class="mail-field" style="padding-top:10px;">
+          <a href="http://www.mediaburst.co.uk/">Sign up for an account</a><br />
 					<?php _e('SMS Available', 'wpcf7_sms') ?>: <?php echo $sms_credit ?> 
 					<a href="https://smsapi.mediaburst.co.uk/" target="_blank" class="button-secondary"><?php _e('Buy credits', 'wpcf7_sms') ?></a>
 					<a id="wpcf7-sms-test" href="#" class="button-secondary"><?php _e('Test', 'wpcf7_sms') ?></a>			

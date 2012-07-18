@@ -6,7 +6,7 @@ Tags: SMS, Mediaburst, Contact Form 7, Text Message
 Text Domain: wpcf7_sms
 Requires at least: 3.0.0
 Tested up to: 3.3.1
-Stable tag: 1.5.3
+Stable tag: 1.5.4
 
 Works with the Contact Form 7 plugin to send SMS notifications when somebody 
 submits your contact form. 
@@ -67,8 +67,11 @@ using the username and password you entered.
 
 == Changelog ==
 
+= 1.5.4 =
+* Adding link to sign up for an account if you don't already have one.
+
 = 1.5.3 =
-* Update mediaburst API wrapper for character compatability on older PHP installs
+* Update mediaburst API wrapper for character compatibility on older PHP installs
 * Rename mediaburst API wrapper class so it works correctly when eCommerce plugin 
   is installed
 
@@ -76,7 +79,7 @@ using the username and password you entered.
 * Update mediaburst API Wrapper to fix character encoding of & sign
 
 = 1.5.1 = 
-* Further tweaks for SSL compatability on servers with missing CA bundles
+* Further tweaks for SSL compatibility on servers with missing CA bundles
 
 = 1.5 =
 * Use WordPress HTTP POST function for the call to the mediaburst API, should
