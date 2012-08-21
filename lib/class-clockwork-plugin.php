@@ -154,19 +154,22 @@ abstract class Clockwork_Plugin {
 			return;
 		}
 		// Display a low credit notification if there's no credit
-		// TODO: This wants to be if it's less than a certain number?
-		$credit = $this->clockwork->checkCredit();
-		if( $credit == 0 ) {
-			$credit = '£0. Top up now!'; 
-		} else {
-			$credit = '£' . $credit;
-		}
-		// Add a node to the Admin bar
-	  $wp_admin_bar->add_node( array(
-	  	'id' => 'clockwork_balance',
-			'title' => 'Clockwork: ' . $credit,
-			'href' => self::BUY_URL ) 
-		);
+    try {
+  		$balance = $this->clockwork->checkBalance();
+  		if( $balance <= 0 ) {
+  			$balance_string = '£0. Top up now!'; 
+  		} else {
+  			$balance_string = $balance['symbol'] . $balance['balance'];
+  		}
+  		// Add a node to the Admin bar
+  	  $wp_admin_bar->add_node( array(
+  	  	'id' => 'clockwork_balance',
+  			'title' => 'Clockwork: ' . $balance_string,
+  			'href' => self::BUY_URL ) 
+  		);
+    } catch( Exception $e ) {
+      // Don't kill the entire admin panel because we can't get the balance
+    }
   }
   
   /**
@@ -218,10 +221,10 @@ abstract class Clockwork_Plugin {
       echo "<input id='clockwork_api_key' name='clockwork_options[api_key]' size='40' type='text' value='{$options['api_key']}' />";
       
       // Output a remaining credit message
-      $clockwork = new WordPressClockwork( $options['api_key'] );
-      $credit = $clockwork->checkCredit();
-      if( $credit ) {
-	      echo '<p><strong>Balance:</strong> £' . $credit . '&nbsp;&nbsp;&nbsp;<a href="' . self::BUY_URL . '" class="button">Buy More</a></p>';
+      $clockwork = new WordPressClockwork( $options['api_key'], array( 'ssl' => false ) );
+      $balance = $clockwork->checkBalance();
+      if( $balance ) {
+	      echo '<p><strong>Balance:</strong> ' . $balance['symbol'] . $balance['balance'] . '&nbsp;&nbsp;&nbsp;<a href="' . self::BUY_URL . '" class="button">Buy More</a></p>';
 	    } else { // We can't get the credits for some reason
 		    echo '<p><a href="' . self::BUY_URL . '" class="button">Buy More Credit</a></p>';
 	    }
