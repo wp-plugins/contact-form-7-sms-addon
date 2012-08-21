@@ -1,23 +1,22 @@
-=== Contact Form 7 - SMS Addon ===
+=== Contact Form 7 - Clockwork SMS ===
 Author: Mediaburst Ltd
-Website: http://www.mediaburst.co.uk/plugins-integrations/contact-form-7-sms/
-Contributors: mediaburst, martinsteel
-Tags: SMS, Mediaburst, Contact Form 7, Text Message
+Website: http://www.clockworksms.com/plugins/contact-form-7-sms-add-on/
+Contributors: mediaburst, jamesinman
+Tags: SMS, Clockwork, Clockwork SMS, Mediaburst, Contact Form 7, Text Message
 Text Domain: wpcf7_sms
 Requires at least: 3.0.0
 Tested up to: 3.3.1
 Stable tag: 1.5.4
 
 Works with the Contact Form 7 plugin to send SMS notifications when somebody 
-submits your contact form. 
+submits your contact form, using the Clockwork API. 
 
 == Description ==
 
-Adds an SMS box to your contact form settings page, fill this in and you'll 
+Adds an SMS box to your Contact Form 7 options pages, fill this in and you'll 
 get a text message each time somebody fills out one of your forms.
 
-You need a [Mediaburst SMS API Account](http://www.mediaburst.co.uk/api/?utm_source=wordpress&utm_medium=plugin&utm_campaign=contact-form-7-sms) and some SMS 
-credits to use this plugin.
+You need a [Clockwork SMS account][1] and some Clockwork credit to use this plugin.
 
 = Requires =
 
@@ -25,21 +24,28 @@ credits to use this plugin.
 
 * [Contact Form 7](http://wordpress.org/extend/plugins/contact-form-7/) 2.4 or higher
 
-* A [Mediaburst SMS API Account](http://www.mediaburst.co.uk/api/?utm_source=wordpress&utm_medium=plugin&utm_campaign=contact-form-7-sms)
+* A [Clockwork SMS account][1]
 
 == Installation ==
 
 1. Upload the 'contact-form-7-sms-addon' directory to the '/wp-content/plugins/' directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Setup you SMS options for each form
+3. Enter your Clockwork API key in the 'Clockwork Options' page under 'Settings'
+4. Set your SMS options for each Contact Form
 
 == Frequently Asked Questions ==
 
-= What is a Mediaburst username and password? = 
+= How do I upgrade if I use an old version of this plugin with a Mediaburst username and password? =
 
-To send SMS you will need to sign up for a [Mediaburst SMS API Account](http://www.mediaburst.co.uk/api/?utm_source=wordpress&utm_medium=plugin&utm_campaign=contact-form-7-sms)
-and purchase some SMS credits.  When you sign up you'll be given a username
-and password to put in these boxes.
+If you already have forms set up using your Mediaburst username and password, just upgrade this
+plugin from inside your Wordpress admin panel, or delete your existing 'contact-form-7-sms-addon'
+directory and follow the installation instructions above. Your API key will automatically be set
+up for you.
+
+= What is a Clockwork API key? = 
+
+To send SMS you will need to sign up for a [Clockwork SMS account][1]
+and purchase some SMS credit. When you sign up you'll be given an API key.
 
 = Can I send to multiple mobile numbers? =
 
@@ -53,12 +59,6 @@ leading + symbol or international dialing prefix.
 For example a UK number should be entered 447123456789, and a Republic 
 of Ireland number would be entered 353870123456.
 
-= Can I test my settings? = 
-
-On the settings page click the Test button just below your username and
-password.  This will send a text message to the configured mobile number(s)
-using the username and password you entered.
-
 == Screenshots ==
 
 1. SMS box added to the Contact Form 7 page
@@ -66,6 +66,9 @@ using the username and password you entered.
 2. SMS settings in detail
 
 == Changelog ==
+
+= 2.0.0 =
+* New version with Clockwork API compatibility. 
 
 = 1.5.4 =
 * Adding link to sign up for an account if you don't already have one.
@@ -113,5 +116,6 @@ using the username and password you entered.
 
 == Upgrade Notice ==
 
-Install this version if you have updated Contact Form 7 to version 3.1. It
-fixes an issue with merged fields.
+Install this version for compatibility with the new Clockwork SMS API.
+
+[1]: http://www.clockworksms.com/plugins/contact-form-7-sms-add-on/?utm_source=wordpress&utm_medium=plugin&utm_campaign=contact-form-7-sms
