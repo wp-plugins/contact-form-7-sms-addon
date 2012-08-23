@@ -20,6 +20,11 @@ class WordPressClockwork extends Clockwork {
   const OPTIONS_KEY = 'clockwork_options';
 
   /**
+   * SSL options key for Clockwork plugins
+   */
+  const SSL_OPTIONS_KEY = 'clockwork_ssl_options';
+
+  /**
    * String to append to API_BASE_URL for getting a new key
    */
   const API_GET_KEY_METHOD = 'get_key';
@@ -66,7 +71,6 @@ class WordPressClockwork extends Clockwork {
     $root->appendChild( $req_doc->createElement( 'Password', $this->password ) );
     $root->appendChild( $req_doc->createElement( 'Name', $name ) );
     $req_xml = $req_doc->saveXML();
-
     // POST XML to Clockwork
     $resp_xml = $this->postToClockwork( self::API_GET_KEY_METHOD, $req_xml );
 
@@ -125,7 +129,7 @@ class WordPressClockwork extends Clockwork {
     'headers' => array( 'Content-Type' => 'text/xml' ),
     'timeout' => 10, // Seconds
     );
-
+    
     // Check whether WordPress should veryify the SSL certificate
     if( stristr( $url, 'https://' ) ) {
       $args['sslverify'] = $this->sslVerify( $url );
@@ -146,21 +150,25 @@ class WordPressClockwork extends Clockwork {
   * don't need to do the check again
   */
   private function sslVerify($url) {
-    $opt = get_option( self::OPTIONS_KEY );
+    $opt = get_option( self::SSL_OPTIONS_KEY );
     if( !$opt ) {
       $opt = array();
     }
+    
     if( !array_key_exists( 'sslverify', $opt ) ) {
-        $args = array(
-        'timeout' => 10, // Seconds
+      $args = array(
+        'timeout' => 10 // Seconds
       );
+      
       $result = wp_remote_post( $url, $args );
+      
       if( is_wp_error( $result ) ) {
         $opt['sslverify'] = false;
       } else {
         $opt['sslverify'] = true;
       }
-      update_option( self::OPTIONS_KEY, $opt );
+      
+      update_option( self::SSL_OPTIONS_KEY, $opt );
     }
     return $opt['sslverify'];
   }

@@ -25,7 +25,10 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-require_once( 'lib/class-clockwork-plugin.php' );  
+// Require Clockwork plugin architecture
+if( !class_exists( 'Clockwork_Plugin' ) ) {
+  require_once( 'lib/class-clockwork-plugin.php' );  
+}
 
 class Clockwork_CF7_Plugin extends Clockwork_Plugin {  
 

@@ -352,14 +352,14 @@ class Clockwork {
     $req_doc->appendChild($root);
     $root->appendChild($req_doc->createElement('Key', $this->key));
     $req_xml = $req_doc->saveXML();
-
+    
     // POST XML to Clockwork
     $resp_xml = $this->postToClockwork(self::API_BALANCE_METHOD, $req_xml);
 
     // Create XML doc for response
     $resp_doc = new DOMDocument();
     $resp_doc->loadXML($resp_xml);
-
+    
     // Parse the response to find balance value
     $balance = null;
     $err_no = null;
@@ -456,15 +456,18 @@ class Clockwork {
   * @return  string          Response from Clockwork
   */
   protected function postToClockwork($method, $data) {
-
     if ($this->log) {
       $this->logXML("API $method Request XML", $data);
     }
-
-    $ssl = isset($this->ssl) ? $this->ssl : $this->sslSupport();
+    
+    if( isset( $this->ssl ) ) {
+      $ssl = $this->ssl;
+    } else {
+      $ssl = $this->sslSupport();
+    }
 
     $url = $ssl ? 'https://' : 'http://';
-    $url.= self::API_BASE_URL . $method;
+    $url .= self::API_BASE_URL . $method;
 
     $response = $this->xmlPost($url, $data);
 
@@ -552,7 +555,7 @@ class Clockwork {
   *
   * @return bool     True if SSL is supported
   */
-  private function sslSupport() {
+  protected function sslSupport() {
     $ssl = false;
     // See if PHP is compiled with cURL
     if (extension_loaded('curl')) {
