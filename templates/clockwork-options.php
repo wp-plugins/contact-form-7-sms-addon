@@ -33,5 +33,7 @@
       
       <p><a href="<?php echo self::SUPPORT_URL; ?>" class="button">Contact Clockwork</a></p>
     </div>
+      
+    <img src="<?php echo plugins_url( 'images/badrobot.png', dirname( __FILE__ ) ); ?>" />
   </div>
 </div>

@@ -1,5 +1,7 @@
 div.right-content {
-	width: 25%; float: left;
+	width: 25%;
+  float: left;
+  text-align: center;
 }
 
 div.left-content {
@@ -7,7 +9,14 @@ div.left-content {
 	width: 75%;
 }
 
+div.right-content img {
+  margin-bottom: -36px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 div.innerbox {
+  text-align: left;
 	border: 1px solid #CCC;
 	border-radius: 25px;
 	margin: 10px 0;
