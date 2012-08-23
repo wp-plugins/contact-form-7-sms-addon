@@ -91,7 +91,7 @@ abstract class Clockwork_Plugin {
     add_action( 'admin_bar_menu', array( $this, 'setup_admin_bar' ), 999 );
     add_action( 'admin_init', array( $this, 'setup_admin_init' ) );
     
-    $this->plugin_callback = array( $this, 'fscf' );
+    $this->plugin_callback = array( $this, 'main' );
   }
     
   /**
