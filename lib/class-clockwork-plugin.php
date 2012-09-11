@@ -39,15 +39,15 @@ abstract class Clockwork_Plugin {
 	/**
 	 * URL to signup for a new Clockwork account
 	 */
-	const SIGNUP_URL = 'http://www.clockworksms.com/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=wp-clockwork';
+	const SIGNUP_URL = 'http://www.clockworksms.com/platforms/wordpress/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=wp-clockwork';
 	/**
 	 * URL to top up message credit
 	*/
-	const BUY_URL = 'http://www.clockworksms.com/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=wp-clockwork';
+	const BUY_URL = 'https://app.clockworksms.com/purchase/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=wp-clockwork';
 	/**
 	 * URL for support
 	 */
-	const SUPPORT_URL = 'http://www.clockworksms.com/support/';
+	const SUPPORT_URL = 'http://www.clockworksms.com/support/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=wp-clockwork';
   
   /**
    * @param $callback Callback function for the plugin's menu item
@@ -55,6 +55,13 @@ abstract class Clockwork_Plugin {
    * @author James Inman
    */
   public $plugin_callback = null;
+  
+  /**
+   * @param $plugin_dir Plugin directory name 
+   *
+   * @author James Inman
+   */
+  public $plugin_dir = null;
   
   /**
 	 * Instance of WordPressClockwork
@@ -266,7 +273,7 @@ abstract class Clockwork_Plugin {
       
     } catch( ClockworkException $e ) {
       echo "<input id='clockwork_api_key' name='clockwork_options[api_key]' size='40' type='text' value='' />";
-      echo '<p><a href="' . self::BUY_URL . '" class="button">Buy More Credit</a></p>';        
+      echo '<p><a href="' . self::SIGNUP_URL . '" class="button">Get An API Key</a></p>';        
     }
   }
   
@@ -331,7 +338,7 @@ abstract class Clockwork_Plugin {
    * @author James Inman
    */
   protected function render_template( $name, $data = array() ) {
-    include( WP_PLUGIN_DIR . '/' . rtrim( basename( dirname( dirname( __FILE__ ) ) ), '/' ) . '/templates/' . $name . '.php');
+    include( WP_PLUGIN_DIR . '/' . $this->plugin_dir . '/templates/' . $name . '.php');
   }
 
 }

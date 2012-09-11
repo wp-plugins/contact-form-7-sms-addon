@@ -368,7 +368,7 @@ class Clockwork {
     foreach ($resp_doc->documentElement->childNodes as $doc_child) {
       switch ($doc_child->nodeName) {
         case "Balance":
-        $balance = floatval($doc_child->nodeValue);
+        $balance = number_format(floatval($doc_child->nodeValue), 2);
         break;
         case "Currency":
         foreach ($doc_child->childNodes as $resp_node) {
