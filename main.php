@@ -1,35 +1,4 @@
 <?php
-/*
-Plugin Name: Contact Form 7 - Clockwork SMS
-Plugin URI: http://wordpress.org/extend/plugins/contact-form-7-sms-addon/
-Description: Send SMS notifications when somebody submits your contact form
-Version: 2.0.0
-Author: Mediaburst
-Author URI: http://www.mediaburst.co.uk/
-*/
- 
-/*  Copyright 2012, Mediaburst Limited.
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
-
-// Require Clockwork plugin architecture
-if( !class_exists( 'Clockwork_Plugin' ) ) {
-  require_once( 'lib/class-clockwork-plugin.php' );  
-}
-
 class Clockwork_CF7_Plugin extends Clockwork_Plugin {  
 
   protected $plugin_name = 'Contact Form 7 SMS';  
@@ -46,7 +15,8 @@ class Clockwork_CF7_Plugin extends Clockwork_Plugin {
     parent::__construct();
     
     // Set the plugin's Clockwork SMS menu to load the contact forms
-    $this->plugin_callback = array( $this, 'wpcf7' );
+    $this->plugin_callback = array( $this, 'wpcf7' );    
+    $this->plugin_dir = basename( dirname( __FILE__ ) );
     
     // Setup options for each Contact Form 7 form
     add_action( 'wpcf7_admin_after_form', array( &$this, 'setup_form_options' ) ); 
@@ -64,6 +34,9 @@ class Clockwork_CF7_Plugin extends Clockwork_Plugin {
   public function setup_form_options( $form ) {    
     if ( wpcf7_admin_has_edit_cap() ) {
       $options = get_option( 'wpcf7_sms_' . $form->id );
+      if( empty( $options ) || !is_array( $options ) ) {
+        $options = array( 'phone' => '', 'message' => '' );
+      }
       $this->render_template( 'form-options', $options );
     }
   }

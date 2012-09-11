@@ -1,6 +1,6 @@
 === Contact Form 7 - Clockwork SMS ===
-Author: Mediaburst Ltd
-Website: http://www.clockworksms.com/plugins/contact-form-7-sms-add-on/
+Author: Clockwork
+Website: http://www.clockworksms.com/platforms/wordpress/?utm_source=wordpress&utm_medium=plugin&utm_campaign=contact-form-7-sms
 Contributors: mediaburst, jamesinman
 Tags: SMS, Clockwork, Clockwork SMS, Mediaburst, Contact Form 7, Text Message
 Text Domain: wpcf7_sms
@@ -30,7 +30,7 @@ You need a [Clockwork SMS account][1] and some Clockwork credit to use this plug
 
 1. Upload the 'contact-form-7-sms-addon' directory to the '/wp-content/plugins/' directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Enter your Clockwork API key in the 'Clockwork Options' page under 'Settings'
+3. Enter your Clockwork API key in the 'Clockwork Options' page under 'Clockwork SMS'
 4. Set your SMS options for each Contact Form
 
 == Frequently Asked Questions ==
@@ -118,4 +118,4 @@ of Ireland number would be entered 353870123456.
 
 Install this version for compatibility with the new Clockwork SMS API.
 
-[1]: http://www.clockworksms.com/plugins/contact-form-7-sms-add-on/?utm_source=wordpress&utm_medium=plugin&utm_campaign=contact-form-7-sms
+[1]: http://www.clockworksms.com/platforms/wordpress/?utm_source=wordpress&utm_medium=plugin&utm_campaign=contact-form-7-sms
