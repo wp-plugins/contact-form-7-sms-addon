@@ -24,7 +24,7 @@ You need a [Clockwork SMS account](http://www.clockworksms.com/platforms/wordpre
 
 * [Contact Form 7](http://wordpress.org/extend/plugins/contact-form-7/) 2.4 or higher
 
-* A [Clockwork SMS account][1]
+* A [Clockwork SMS account](http://www.clockworksms.com/platforms/wordpress/?utm_source=wordpress&utm_medium=plugin&utm_campaign=contact-form-7-sms)
 
 == Installation ==
 
