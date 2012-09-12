@@ -16,7 +16,7 @@ submits your contact form, using the Clockwork API.
 Adds an SMS box to your Contact Form 7 options pages, fill this in and you'll 
 get a text message each time somebody fills out one of your forms.
 
-You need a [Clockwork SMS account][1] and some Clockwork credit to use this plugin.
+You need a [Clockwork SMS account](http://www.clockworksms.com/platforms/wordpress/?utm_source=wordpress&utm_medium=plugin&utm_campaign=contact-form-7-sms) and some Clockwork credit to use this plugin.
 
 = Requires =
 
@@ -117,5 +117,3 @@ of Ireland number would be entered 353870123456.
 == Upgrade Notice ==
 
 Install this version for compatibility with the new Clockwork SMS API.
-
-[1]: http://www.clockworksms.com/platforms/wordpress/?utm_source=wordpress&utm_medium=plugin&utm_campaign=contact-form-7-sms
