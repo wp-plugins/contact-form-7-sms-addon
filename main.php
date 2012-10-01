@@ -91,12 +91,13 @@ class Clockwork_CF7_Plugin extends Clockwork_Plugin {
       $message = preg_replace_callback( $regex, $callback, $options['message'] );
       $phone = preg_replace_callback( $regex, $callback, $options['phone'] );
       $phone = explode( ',', $phone );
+      $from = $options['from'];
     
       try {
         $clockwork = new WordPressClockwork( $options['api_key'] );
         $messages = array();
         foreach( $phone as $to ) {
-          $messages[] = array( 'to' => $to, 'message' => $message );          
+          $messages[] = array( 'from' => $from, 'to' => $to, 'message' => $message );          
         }
         $result = $clockwork->send( $messages );
       } catch( ClockworkException $e ) {
