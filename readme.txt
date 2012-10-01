@@ -6,7 +6,7 @@ Tags: SMS, Clockwork, Clockwork SMS, Mediaburst, Contact Form 7, Text Message
 Text Domain: wpcf7_sms
 Requires at least: 3.0.0
 Tested up to: 3.4.2
-Stable tag: 2.0.2
+Stable tag: 2.1.0
 
 Works with the Contact Form 7 plugin to send SMS notifications when somebody 
 submits your contact form, using the Clockwork API. 
@@ -66,6 +66,9 @@ of Ireland number would be entered 353870123456.
 2. SMS settings in detail
 
 == Changelog ==
+
+= 2.1.0 =
+* Added the ability to set the 'From' sender of SMS messages.
 
 = 2.0.2 =
 * Updated to the latest version of the Clockwork wrappers.
