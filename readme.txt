@@ -5,8 +5,8 @@ Contributors: mediaburst, martinsteel, mediaburstjohnc
 Tags: SMS, Clockwork, Clockwork SMS, Mediaburst, Contact Form 7, Text Message
 Text Domain: wpcf7_sms
 Requires at least: 3.0.0
-Tested up to: 3.8.0
-Stable tag: 2.1.4
+Tested up to: 3.9.0
+Stable tag: 2.2.0
 
 Works with the Contact Form 7 plugin to send SMS notifications when somebody 
 submits your contact form, using the Clockwork API. 
@@ -22,25 +22,18 @@ You need a [Clockwork SMS account](http://www.clockworksms.com/platforms/wordpre
 
 * Wordpress 3 or higher
 
-* [Contact Form 7](http://wordpress.org/extend/plugins/contact-form-7/) 2.4 or higher
+* [Contact Form 7](http://wordpress.org/extend/plugins/contact-form-7/) 3.4 or higher
 
 * A [Clockwork SMS account](http://www.clockworksms.com/platforms/wordpress/?utm_source=wordpress&utm_medium=plugin&utm_campaign=contact-form-7-sms)
 
 == Installation ==
 
-1. Upload the 'contact-form-7-sms-addon' directory to the '/wp-content/plugins/' directory
+1. Search for and install "Contact Form 7 - Clockwork SMS" through WordPress Admin
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Enter your Clockwork API key in the 'Clockwork Options' page under 'Clockwork SMS'
 4. Set your SMS options for each Contact Form
 
 == Frequently Asked Questions ==
-
-= How do I upgrade if I use an old version of this plugin with a Mediaburst username and password? =
-
-If you already have forms set up using your Mediaburst username and password, just upgrade this
-plugin from inside your Wordpress admin panel, or delete your existing 'contact-form-7-sms-addon'
-directory and follow the installation instructions above. Your API key will automatically be set
-up for you.
 
 = What is a Clockwork API key? = 
 
@@ -59,6 +52,11 @@ leading + symbol or international dialing prefix.
 For example a UK number should be entered 447123456789, and a Republic 
 of Ireland number would be entered 353870123456.
 
+= What versions of Contact Form 7 does this work with? =
+
+The plugin has been tested with versions of Contact Form 7 from 3.4 thorough to 3.8,
+earlier versions of Contact Form 7 won't work but future releases should.
+
 == Screenshots ==
 
 1. SMS box added to the Contact Form 7 page
@@ -66,6 +64,11 @@ of Ireland number would be entered 353870123456.
 2. SMS settings in detail
 
 == Changelog ==
+
+= 2.2.0 =
+* Contact Form 7 3.8 compatability
+* Tested for WordPress 3.9
+* Dropped support for Contact Form 7 versions earlier than 3.4
 
 = 2.1.4 =
 * WordPress 3.8 compatibility.
