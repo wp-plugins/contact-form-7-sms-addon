@@ -3,12 +3,13 @@
 Plugin Name: Contact Form 7 - Clockwork SMS
 Plugin URI: http://wordpress.org/extend/plugins/contact-form-7-sms-addon/
 Description: Send SMS notifications when somebody submits your contact form
-Version: 2.1.4
+Version: 2.2.0
 Author: Mediaburst
 Author URI: http://www.mediaburst.co.uk/
 */
  
-/*  Copyright 2012, Mediaburst Limited.
+/*  
+Copyright 2014, Mediaburst Limited.
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
