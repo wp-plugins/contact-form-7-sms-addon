@@ -33,7 +33,7 @@ class Clockwork_CF7_Plugin extends Clockwork_Plugin {
    */
   public function setup_form_options( $form ) {    
     if ( wpcf7_admin_has_edit_cap() ) {
-      $options = get_option( 'wpcf7_sms_' . $form->id );
+      $options = get_option( 'wpcf7_sms_' . (method_exists($form, 'id') ? $form->id() : $form->id) );
       if( empty( $options ) || !is_array( $options ) ) {
         $options = array( 'phone' => '', 'message' => '' );
       }
@@ -77,11 +77,20 @@ class Clockwork_CF7_Plugin extends Clockwork_Plugin {
    * @author James Inman
    */
   public function send_sms( $form ) {
-    $options = array_merge( get_option( 'clockwork_options' ), get_option( 'wpcf7_sms_' . $form->id ) );
+    $options = array_merge( get_option( 'clockwork_options' ), get_option( 'wpcf7_sms_' . (method_exists($form, 'id') ? $form->id() : $form->id) ) );
     if( isset( $options['api_key'] ) && isset( $options['phone'] ) && $options['phone'] != '' && isset( $options['message'] ) && $options['message'] != '' ) { 
 
+    // Contact Form 7 > 3.9 
+    if(function_exists('wpcf7_mail_replace_tags')) {
+      $message = wpcf7_mail_replace_tags($options['message'], array());
+      $phone = wpcf7_mail_replace_tags($options['phone'], array());
+    } elseif(method_exists($form, 'replace_mail_tags')) {
       $message = $form->replace_mail_tags($options['message']);
       $phone = $form->replace_mail_tags($options['phone']);
+    } else {
+      return;
+    }
+
       $phone = explode( ',', $phone );
       $from = $options['from'];
  
@@ -108,7 +117,7 @@ class Clockwork_CF7_Plugin extends Clockwork_Plugin {
    * @author James Inman
    */
   public function save_form( $form ) {
-    update_option( 'wpcf7_sms_' . $form->id, $_POST['wpcf7-sms'] );
+    update_option( 'wpcf7_sms_' . (method_exists($form, 'id') ? $form->id() : $form->id), $_POST['wpcf7-sms'] );
   }
   
   /**
@@ -129,7 +138,7 @@ class Clockwork_CF7_Plugin extends Clockwork_Plugin {
 
 		$forms = WPCF7_ContactForm::find( array() );
     foreach( $forms as $form ) {
-      $options = get_option( 'wpcf7_sms_' . $form->id );
+      $options = get_option( 'wpcf7_sms_' . (method_exists($form, 'id') ? $form->id() : $form->id) );
       if( isset( $options['username'] ) && isset( $options['password'] ) ) {
         return array( 'username' => $options['username'], 'password' => $options['password'] );
       }
