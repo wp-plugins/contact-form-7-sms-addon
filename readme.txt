@@ -5,7 +5,7 @@ Contributors: mediaburst, martinsteel, mediaburstjohnc
 Tags: SMS, Clockwork, Clockwork SMS, Mediaburst, Contact Form 7, Text Message
 Text Domain: wpcf7_sms
 Requires at least: 3.0.0
-Tested up to: 3.9.1
+Tested up to: 4.0.0
 Stable tag: 2.2.1
 
 Works with the Contact Form 7 plugin to send SMS notifications when somebody 
