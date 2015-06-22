@@ -22,7 +22,28 @@ class Clockwork_CF7_Plugin extends Clockwork_Plugin {
     add_action( 'wpcf7_admin_after_form', array( &$this, 'setup_form_options' ) ); 
     add_action( 'wpcf7_after_save', array( &$this, 'save_form' ) );
     add_action( 'wpcf7_before_send_mail', array( &$this, 'send_sms' ) );
+    add_filter( 'wpcf7_editor_panels' , array(&$this, 'new_panel'));
   }
+
+
+public function new_panel ($panels) {
+	$panels['sms-panel'] = array(
+			'title' => 'SMS',
+			'callback' => array(&$this, 'display_panel')
+	);
+	return $panels;
+}
+
+public function display_panel($form) {
+    if ( wpcf7_admin_has_edit_cap() ) {
+      $options = get_option( 'wpcf7_sms_' . (method_exists($form, 'id') ? $form->id() : $form->id) );
+      if( empty( $options ) || !is_array( $options ) ) {
+        $options = array( 'phone' => '', 'message' => '' );
+      }
+      $options['form'] = $form;
+      $this->render_template( 'form-options-4.2', $options );
+    }
+}
 
   /**
    * Include the template for each contact form's SMS options
